@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nombre a Fórmula</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <h1>Escribe la fórmula del compuesto</h1>
+  <div>
+    <p><strong>Compuesto:</strong> <span id="nombre-compuesto">Cargando...</span></p>
+    <input type="text" id="respuesta" placeholder="Escribe la fórmula">
+    <button onclick="verificarFormula()">Verificar</button>
+    <div id="resultado"></div>
+    <button onclick="obtenerNuevoNombre()">Nuevo compuesto</button>
+  </div>
+
+  <script>
+    let nombreActual = "";
+
+    async function obtenerNuevoNombre() {
+      const res = await fetch('/nombre');
+      const data = await res.json();
+      nombreActual = data.nombre;
+      document.getElementById('nombre-compuesto').innerText = nombreActual;
+      document.getElementById('respuesta').value = "";
+      document.getElementById('resultado').innerText = "";
+    }
+
+    async function verificarFormula() {
+      const respuesta = document.getElementById('respuesta').value;
+      const res = await fetch('/verificar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre: nombreActual, respuesta })
+      });
+      const data = await res.json();
+      document.getElementById('resultado').innerText = data.correcto
+        ? '✅ ¡Correcto!'
+        : `❌ Incorrecto. Era: ${data.esperada}`;
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener('keydown', function(event) {
+        const input = document.getElementById('respuesta');
+        if (document.activeElement === input) {
+            if (event.key === 'Enter' && !event.ctrlKey) {
+            event.preventDefault();
+            verificarFormula();
+            } else if (event.key === 'Enter' && event.ctrlKey) {
+            event.preventDefault();
+            obtenerNuevoNombre();
+            }
+        }
+        });
+    })
+    // Inicializar al cargar
+    window.onload = obtenerNuevoNombre;
+  </script>
+</body>
+</html>
