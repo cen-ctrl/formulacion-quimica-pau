@@ -2,17 +2,20 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Nombre a Fórmula</title>
+  <title>Formulación inorgánica - PAU</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-  <h1>Escribe la fórmula del compuesto</h1>
-  <div>
-    <p><strong>Compuesto:</strong> <span id="nombre-compuesto">Cargando...</span></p>
-    <input type="text" id="respuesta" placeholder="Escribe la fórmula">
-    <button onclick="verificarFormula()">Verificar</button>
-    <div id="resultado"></div>
-    <button onclick="obtenerNuevoNombre()">Nuevo compuesto</button>
+  <div class="container">
+    <h1>Escribe la fórmula del compuesto</h1>
+    <div class="content">
+      <p><strong>Compuesto:</strong> <span id="nombre-compuesto">Cargando...</span></p>
+      <input type="text" id="respuesta" placeholder="Escribe la fórmula">
+      <button onclick="verificarFormula()">Verificar</button>
+      <div id="resultado"></div>
+      <button onclick="obtenerNuevoNombre()">Nuevo compuesto</button>
+    </div>
   </div>
 
   <script>
@@ -39,21 +42,22 @@
         ? '✅ ¡Correcto!'
         : `❌ Incorrecto. Era: ${data.esperada}`;
     }
+
     document.addEventListener("DOMContentLoaded", () => {
-        document.addEventListener('keydown', function(event) {
+      document.addEventListener('keydown', function(event) {
         const input = document.getElementById('respuesta');
         if (document.activeElement === input) {
-            if (event.key === 'Enter' && !event.ctrlKey) {
+          if (event.key === 'Enter' && !event.ctrlKey) {
             event.preventDefault();
             verificarFormula();
-            } else if (event.key === 'Enter' && event.ctrlKey) {
+          } else if (event.key === 'Enter' && event.ctrlKey) {
             event.preventDefault();
             obtenerNuevoNombre();
-            }
+          }
         }
-        });
-    })
-    // Inicializar al cargar
+      });
+    });
+
     window.onload = obtenerNuevoNombre;
   </script>
 </body>

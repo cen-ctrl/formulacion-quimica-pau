@@ -1,17 +1,78 @@
-body {
-  font-family: sans-serif;
-  padding: 2rem;
-  max-width: 600px;
-  margin: auto;
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-input, button {
-  padding: 0.5rem;
-  font-size: 1rem;
-  margin-top: 1rem;
+
+html, body {
+  height: 100%;
   width: 100%;
+  font-family: sans-serif;
+  background-color: #f0f0f0;
 }
+
+/* Centrado con flexbox */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* Contenedor principal */
+.container {
+  background: white;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Título */
+.container h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Texto y resultado */
+.container p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
 #resultado {
   margin-top: 1rem;
   font-weight: bold;
-  color: #007bff;
+  font-size: 1.1rem;
+}
+
+/* Input de respuesta */
+input[type="text"] {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Botones */
+button {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3;
 }
